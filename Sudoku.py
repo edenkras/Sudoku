@@ -1,10 +1,10 @@
 import random
 
 def sudokuGen():
-	""" Returns a completed Sudoku board """
+	""" Returns a Sudoku board """
 
 	board = [[cell() for _ in range(9)] for _ in range(9)]
-	stack = [board[0][0]] + [None for _ in range(80)]
+	stack = [board[0][0]] + [None] * 80
 	index = 1
 
 	while index < 81:
@@ -32,13 +32,13 @@ def solve(puzzle):
 	def solver(sudoku, queue):
 		if not queue:
 			return sudoku
-		queue.sort(key = lambda c: len(c[1]))
-		randCell = queue.pop(0)
-		if len(randCell[1]) == 0:
+		queue.sort(key = lambda x: len(x[1]))
+		currCell = queue.pop(0)
+		if len(currCell[1]) == 0:
 			return None
-		x, y = randCell[0]
+		x, y = currCell[0]
 		sudoku[x][y] = cell(False)
-		for sudoku[x][y].index in randCell[1]:
+		for sudoku[x][y].index in currCell[1]:
 			tempQueue = []
 			for c in queue:
 				emptyCell = (c[0], list(c[1]))
